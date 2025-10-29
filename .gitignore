@@ -34,3 +34,4 @@ tests/**/raw/
 # CLI output artifacts
 out.md
 project_dir/
+out/
