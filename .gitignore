@@ -9,6 +9,8 @@ __pycache__/
 .env
 .env.*
 .pytest_cache/
+.coverage
+htmlcov/
 
 # Build artifacts
 build/
@@ -23,16 +25,27 @@ dist/
 # Project outputs (don’t commit runtime bundles)
 project_dir/out/
 project_dir/dist/
-
-# Local data (if used)
-.fairy_data/
-
-# Test fixture raw data (avoid huge binaries)
-fairy/tests/fixtures/**/raw/
-*.egg-info/
-tests/**/raw/
-# CLI output artifacts
-out.md
-project_dir/
+project_dir/           # keep local project workspace out of git
 out/
 scratch_run1/
+exports/               # top-level exports (if you use them)
+
+# FAIRy app data
+.fairy_data/           # includes per-project exports and history
+**/.fairy_last_run.json
+
+# Test fixtures & outputs
+fairy/tests/fixtures/**/raw/
+tests/**/raw/
+tests/**/_out/
+tests/**/*_out/
+
+# Logs
+*.log
+
+# Local outputs
+manifest.json
+schema.md
+out.md
+project_dir/
+.fairy_data/
