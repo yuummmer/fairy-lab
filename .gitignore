@@ -49,3 +49,6 @@ schema.md
 out.md
 project_dir/
 .fairy_data/
+
+# legacy stash
+_legacy/
