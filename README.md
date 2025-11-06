@@ -1,67 +1,94 @@
-# ✨ FAIRy Skeleton
+# ✨ FAIRy Skeleton (demo runner)✨
+FAIRy-Skeleton is the demo/launcher for FAIRy-core
+ — a local-first validator and packager for FAIR-compliant data submissions.
+This repo contains demo configs and a tiny CLI (fairy-skel) that call the real engine in FAIRy-core.
 
-🚧 **Prototype / Smoketest** 🚧  
-This is an experimental [Streamlit](https://streamlit.io/) prototype for FAIRy —  
-a local-first validator and packager for FAIR-compliant data submissions.  
-
-- ✅ Shows basic flows: create project, upload CSV, validate, export placeholder  
-- ⚠️ Not production-ready — meant for demos, testing, and early feedback  
-- 🔓 The clean, open-source FAIRy Core engine (validator, templates, CLI) will live in a separate repo soon
+What this is: runnable demos (PASS/WARN/FAIL), sample inputs, and a simple UX to showcase workflows.
+What this isn’t: the validator engine. All validation logic lives in FAIRy-core.
 
 ---
-
-## 📸 Screenshot
-
-### Dashboard view
-![FAIRy Dashboard](FAIRy_Dash.png)
-
----
-
-## 🚀 Getting Started
-
-Clone the repo and set up a virtual environment:
-
+## TL;DR
 ```bash
-git clone https://github.com/yuummmer/metadata-wizard.git
-cd metadata-wizard   # or fairy-skeleton if you renamed it
+# 1) Create env
 python -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-streamlit run app.py
+
+# 2) Install FAIRy-core (engine)
+# (from a sibling checkout)
+pip install -e ../fairy-core
+
+# 3) Install skeleton (this repo)
+pip install -e .
+
+# 4) List and run demos
+fairy-skel demos
+fairy-skel run bulk_rnaseq_min     # intentionally FAILS
+fairy-skel run bulk_rnaseq_pass    # PASS example
+
 ```
-## Quickstart (v0.1)
+Outputs are written to each demo’s out/ path defined in its config.yaml.
+---
+## Requirements
+- Python 3.10+ (FAIRy-core polyfills datetime.UTC for 3.10)
+- Unix-like shell (Linux/macOS/WSL)
+-pip and venv (or conda/mamba equivalent)
+
+---
+## Getting Started
+1. Clone both repos side-by-side (recommended layout):
+projects/
+  fairy-core/
+  fairy-skeleton/
+2. Install:
+
 ```bash
-Prereqs: Python 3.11+, `pip install -e .`
+cd projects/fairy-core
+python -m venv .venv && source .venv/bin/activate
+pip install -e .
+
+cd ../fairy-skeleton
+pip install -e .
+
 ```
-Produce a schema-validated report at project_dir/out/report.json:
+3. Run a demo:
 ```bash
-python - <<'PY'
-from fairy.core.services.report_writer import write_report
-write_report("project_dir/out",
-    filename="samples_toy.csv",
-    sha256="0"*64,
-    meta={"n_rows":1,"n_cols":2,"fields_validated":["a","b"],"warnings":[]},
-    rulepacks=[],
-    provenance={"license":None,"source_url":None,"notes":None},
-    input_path="samples_toy.csv")
-PY
-# → [FAIRy] Wrote /abs/path/project_dir/out/report.json
+fairy-skel demos
+fairy-skel run bulk_rnaseq_min   # FAIL + WARN (shows findings)
+fairy-skel run bulk_rnaseq_pass  # PASS (submission_ready: True)
+
 ```
-Optional: validate the output against the JSON Schema
+Or call the engine directly
 ```bash
-python - <<'PY'
-import json, jsonschema
-from pathlib import Path
-schema = json.loads(Path("schemas/report_v0.schema.json").read_text())
-data = json.loads(Path("project_dir/out/report.json").read_text())
-jsonschema.validate(data, schema)
-print("✅ report.json validates")
-PY
+fairy preflight \
+  --rulepack /absolute/path/to/fairy-core/src/fairy/rulepacks/GEO-SEQ-BULK/v0_1_0.json \
+  --samples  /absolute/path/to/samples.tsv \
+  --files    /absolute/path/to/files.tsv \
+  --out      /path/to/out/report.json
+
 ```
-## 🧪 Tests
+
+## 🧪 Demos
+Each demo is a folder under demos/<name> with a config.yaml:
+```yaml
+rulepack: /abs/path/to/fairy-core/src/fairy/rulepacks/GEO-SEQ-BULK/v0_1_0.json
+inputs:
+  samples: demos/<name>/inputs/samples.tsv
+  files:   demos/<name>/inputs/files.tsv
+out: demos/<name>/out/report.json
+```
+Current demos:
+- bulk_rnaseq_min - intentionally FAIL + WARN to show findings
+- bulk_rnaseq_pass - clean PASS
+
+List all the demos:
 ```bash
-pytest -q
+fairy-skel demos
 ```
+Run one:
+```bash
+fairy-skel run <name>
+```
+---
 ## 🗺️ Roadmap (v0.1 scope)
 Streamlit Export & Validate tab wired to backend (warn-mode).
 
@@ -70,9 +97,92 @@ Deterministic report.json writer validated by JSON Schema.
 Golden fixture test for bad.csv.
 
 (See GitHub issues for v0.2 items like bundles, manifests, ZIP export, and provenance.)
+---
+## Create your own demo
+```bash
+mkdir -p demos/my_demo/inputs
 
-## Attribution / Citation
+# Provide TAB-separated TSVs
+# samples.tsv
+cat > demos/my_demo/inputs/samples.tsv <<'TSV'
+sample_id	organism	collection_date
+S1	Homo sapiens	2025-01-01
+S2	Homo sapiens	2025-01-02
+TSV
 
-If you use FAIRy, please cite:
-FAIRy (v0.1, prototype). URL: https://github.com/yuummmer/metadata-wizard
-This project reuses open-source components credited in the repository’s LICENSE and NOTICE sections.
+# files.tsv
+cat > demos/my_demo/inputs/files.tsv <<'TSV'
+sample_id	path
+S1	reads/S1_R1.fastq.gz
+S2	reads/S2_R1.fastq.gz
+TSV
+
+# config.yaml
+cat > demos/my_demo/config.yaml <<'YAML'
+rulepack: /absolute/path/to/fairy-core/src/fairy/rulepacks/GEO-SEQ-BULK/v0_1_0.json
+inputs:
+  samples: demos/my_demo/inputs/samples.tsv
+  files:   demos/my_demo/inputs/files.tsv
+out: demos/my_demo/out/report.json
+YAML
+
+# Try it
+fairy-skel run my_demo
+
+```
+Tip: you can also point inputs: to files inside fairy-core/demos/... via absolute paths or symlinks.
+---
+## Repo structure & legacy note
+- fairy_skeleton/ — small demo runner CLI (fairy-skel)
+- demos/ — demo configs + inputs + outputs
+- scripts/run_demo.sh — helper invoked by the runner
+- _legacy/ — archived code moved out of the package; not shipped.
+We prefer our branch during merges for this folder via .gitattributes.
+
+Packaging: only fairy_skeleton* is packaged. The validator engine lives in FAIRy-core.
+---
+## FAIRy-core + versions
+- Engine repo: https://github.com/yuummmer/fairy-core
+- CLI commands available there: fairy validate, fairy preflight
+- This skeleton requires FAIRy-core ≥ 0.1.0
+
+(Coming soon: a tiny matrix mapping skeleton tags → minimum core version.)
+---
+## Development & tests
+Skeleton has a minimal test/smoke setup. Most tests live in FAIRy-core.
+```bash
+pytest -q
+```
+Optional GitHub Actions “smoke” workflow suggestion:
+
+- run pip install -e . (core + skeleton)
+- fairy-skel run bulk_rnaseq_min and assert an output file exists
+---
+## Issues & support
+- Engine/validator bugs → FAIRy-core issues
+- Demo runner or example configs here → this repo’s issues
+
+Security reports should target FAIRy-core.
+---
+## 📜 License
+
+FAIRy-Skeleton: MIT (this repo)
+
+FAIRy-Core: AGPL-3.0-only (see core repo)
+
+---
+
+## 📸 Screenshot
+
+### Dashboard view
+![FAIRy Dashboard](FAIRy_Dash.png)
+---
+
+## Citation
+
+If you use FAIRy in demos or talks, please cite:
+
+FAIRy (v0.1). Local-first validator for FAIR data.
+FAIRy-core: https://github.com/yuummmer/fairy-core
+
+FAIRy-skeleton: https://github.com/yuummmer/fairy-skeleton
