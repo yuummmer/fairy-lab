@@ -3,34 +3,51 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "fairy-skeleton"                # demo distribution name
+name = "fairy-skeleton"                       # demo app that consumes fairy-core
 version = "0.1.0"
-description = "FAIRy demo environment (Streamlit + thin CLI) that will call fairy-core."
+description = "FAIRy demo environment (Streamlit + thin utilities) that calls fairy-core."
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Jennifer Slotnick" }]
 license = { text = "MIT" }
-# Minimal runtime deps for the validator demo; adjust as you wire things up:
+
+# Minimal runtime deps for a demo app (add more as the demo grows)
 dependencies = [
   "pandas>=2.0",
   "pandera>=0.18"
 ]
 
 [project.urls]
-Homepage = "https://github.com/yuummmer/metadata-wizard"
-Repository = "https://github.com/yuummmer/metadata-wizard"
+Homepage = "https://github.com/yuummmer/fairy-skeleton"
+Repository = "https://github.com/yuummmer/fairy-skeleton"
 
 [project.optional-dependencies]
-ui = ["streamlit>=1.36"]               # later: `pip install .[ui]` for the demo UI
-dev = ["pytest", "pandas", "pandera", "jsonschema"]
+# Install the Streamlit demo UI with:  pip install .[ui]
+ui = ["streamlit>=1.36"]
+
+# Developer tools:  pip install .[dev]
+dev = [
+  "pytest>=8.3",
+  "black>=24.8",
+  "ruff>=0.6",
+  "pre-commit>=4.0",
+  "pytest-cov>=5.0",
+  "freezegun>=1.5",
+  "jsonschema>=4.19"
+]
+
+# Easy way to pull the engine from GitHub while fairy-core isn't on PyPI:
+# usage: pip install .[core]
+core = ["fairy-core @ git+https://github.com/yuummmer/fairy-core@main"]
 
 [project.scripts]
-fairy = "fairy.cli.run:main"
-fairy-demo = "fairy.cli.run:demo_alias_main"  # <-- demo CLI (reserve `fairy` for the core package)
+# Give the demo its own CLI name (optional). Point this to your demo entrypoint.
+# Create fairy_skeleton/cli.py with a `main()` that calls into fairy-core or runs your Streamlit wrapper.
+fairy-skel = "fairy_skeleton.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["fairy*"]              # our package is `fairy_demo` inside this repo
+include = ["fairy_skeleton*"]  # keep demo code in the 'fairy_skeleton' package (not 'fairy')
 
 [tool.black]
 line-length = 100
@@ -54,5 +71,5 @@ skip = [".venv", ".fairy_data", "exports"]
 line-length = 100
 target-version = "py312"
 extend-exclude = [".venv", ".fairy_data", "exports"]
-lint.select = ["E","F","I","B","UP"]   # basic flake8 + bugbear + pyupgrade + imports
-lint.ignore = ["E203","E266"]           # keep Black happy
+lint.select = ["E","F","I","B","UP"]
+lint.ignore = ["E203","E266"]
