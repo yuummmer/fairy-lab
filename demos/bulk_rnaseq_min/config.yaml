@@ -1,0 +1,5 @@
+rulepack: /home/jenni/projects/fairy-core/src/fairy/rulepacks/GEO-SEQ-BULK/v0_1_0.json
+inputs:
+  samples: demos/bulk_rnaseq_min/inputs/samples.tsv
+  files:   demos/bulk_rnaseq_min/inputs/files.tsv
+out: demos/bulk_rnaseq_min/out/report.json
