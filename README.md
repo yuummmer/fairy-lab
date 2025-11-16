@@ -136,7 +136,7 @@ Tip: you can also point inputs: to files inside fairy-core/demos/... via absolut
 - fairy_skeleton/ — small demo runner CLI (fairy-skel)
 - demos/ — demo configs + inputs + outputs
 - scripts/run_demo.sh — helper invoked by the runner
-- _legacy/ — archived code moved out of the package; not shipped.
+- _legacy/ — archived code moved out of the package; not maintained.
 We prefer our branch during merges for this folder via .gitattributes.
 
 Packaging: only fairy_skeleton* is packaged. The validator engine lives in FAIRy-core.
@@ -166,9 +166,16 @@ Security reports should target FAIRy-core.
 ---
 ## 📜 License
 
-FAIRy-Skeleton: MIT (this repo)
+- **FAIRy Lab / FAIRy-skeleton (this repo)**:  
+  Application / UI code in this repository is licensed under the **MIT License**.  
+  See [`LICENSE`](./LICENSE).
 
-FAIRy-Core: AGPL-3.0-only (see core repo)
+- **FAIRy-core (engine)**:  
+  Licensed under **AGPL-3.0-only** in the core repository.
+
+When this Lab UI is used together with FAIRy-core, the AGPL terms apply to
+FAIRy-core and any modifications to it. The Lab code in this repo remains MIT,
+and may also be adapted to work with other backends.
 
 ---
 
@@ -180,9 +187,11 @@ FAIRy-Core: AGPL-3.0-only (see core repo)
 
 ## Citation
 
-If you use FAIRy in demos or talks, please cite:
+If you use FAIRy in demos, talks, or publications, please cite:
 
-FAIRy (v0.1). Local-first validator for FAIR data.
-FAIRy-core: https://github.com/yuummmer/fairy-core
+FAIRy (v0.1). Local-first validator for FAIR, AI-ready research data.  
+FAIRy-core (engine): https://github.com/yuummmer/fairy-core  
+FAIRy Lab (UI & labs): https://github.com/yuummmer/fairy-lab
 
-FAIRy-skeleton: https://github.com/yuummmer/fairy-skeleton
+For more detailed citation metadata (authors, version, DOI if applicable),
+see [`CITATION.cff`](./CITATION.cff).
