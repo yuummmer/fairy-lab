@@ -173,7 +173,7 @@ Tip: you can also point inputs: to files inside fairy-core/demos/... via absolut
 - fairy_skeleton/ — small demo runner CLI (fairy-skel)
 - demos/ — demo configs + inputs + outputs
 - scripts/run_demo.sh — helper invoked by the runner
-- _legacy/ — archived code moved out of the package; not shipped.
+- _legacy/ — archived code moved out of the package; not maintained.
 We prefer our branch during merges for this folder via .gitattributes.
 
 Packaging: only fairy_skeleton* is packaged. The validator engine lives in FAIRy-core.
@@ -203,21 +203,16 @@ Security reports should target FAIRy-core.
 ---
 ## 📜 License
 
-This repository (“FAIRy Lab” / FAIRy-skeleton) is licensed under a primarily permissive license:
+- **FAIRy Lab / FAIRy-skeleton (this repo)**:  
+  Application / UI code in this repository is licensed under the **MIT License**.  
+  See [`LICENSE`](./LICENSE).
 
-- **Application / UI code in this repo** (e.g. `src/**`, front-end / API glue):  
-  Licensed under **MIT**. See [`LICENSE`](./LICENSE).
+- **FAIRy-core (engine)**:  
+  Licensed under **AGPL-3.0-only** in the core repository.
 
-- **Example rulepacks, lab configs, and workflows** (if present, e.g. under `labs/**` or `rulepacks/**`):  
-  Intended to be **maximally reusable**. By default these follow the license
-  of this repo (MIT), but we may mark some directories or files as
-  **CC0-1.0** via a local `LICENSE` file if they’re meant as public-domain
-  building blocks.
-
-- **Example datasets, notebooks, and documentation assets** (e.g. `examples/**`, `data/**`, `notebooks/**`):  
-  Unless otherwise noted, these are provided under **CC BY-4.0** so they can
-  be reused with attribution. If a folder has its own `LICENSE` file, that
-  file takes precedence for that content.
+When this Lab UI is used together with FAIRy-core, the AGPL terms apply to
+FAIRy-core and any modifications to it. The Lab code in this repo remains MIT,
+and may also be adapted to work with other backends.
 
 - **Third-party components**:  
   See [`THIRD_PARTY_LICENSES.md`](./THIRD_PARTY_LICENSES.md) if present.
@@ -237,8 +232,11 @@ questions around FAIRy-core, contact **hello@datadabra.com**.
 
 ## Citation
 
-If you use FAIRy in demos or talks, please cite:
+If you use FAIRy in demos, talks, or publications, please cite:
 
-FAIRy (v0.1). Local-first validator for FAIR data.
-FAIRy-core: https://github.com/yuummmer/fairy-core
-FAIRy Lab: https://github.com/yuummmer/fairy-skeleton
+FAIRy (v0.1). Local-first validator for FAIR, AI-ready research data.  
+FAIRy-core (engine): https://github.com/yuummmer/fairy-core  
+FAIRy Lab (UI & labs): https://github.com/yuummmer/fairy-lab
+
+For more detailed citation metadata (authors, version, DOI if applicable),
+see [`CITATION.cff`](./CITATION.cff).
