@@ -1,0 +1,80 @@
+
+## 3) rulepack skeleton (fill in the TODOs)
+Create `katas/art-collections/rules/tate-art-collections@0.1.0.yaml`:
+```yaml
+meta:
+  name: tate-art-collections@0.1.0
+  description: Kata rulepack for Art Collections (TidyTuesday 2021-01-12)
+  target: csv
+
+params:
+  min_year: 1600   # TODO: tune after 1st run
+  max_year: 2025   # TODO: tune after 1st run
+  url_schemes: [http,https]
+  medium_policy: []  # TODO: start empty; add later for a warn rule
+
+tables:
+  artworks:
+    path: fixtures/artworks.csv
+  artists:
+    path: fixtures/artists.csv
+
+rules:
+  # STRUCTURAL
+  - id: artworks-required-columns
+    type: schema.required
+    table: artworks
+    columns: [id, artistId, title, acquisitionYear, url]   # TODO: adjust if you want
+    level: fail
+
+  - id: artists-required-columns
+    type: schema.required
+    table: artists
+    columns: [artistId, artist]
+    level: fail
+
+  # - id: artworks-id-unique
+  #   type: row.unique
+  #   table: artworks
+  #   column: id
+  #   level: fail
+
+  # - id: artist-foreign-key
+  #   type: table.foreign_key   # TODO: use your engine’s FK rule name
+  #   from:
+  #     table: artworks
+  #     column: artistId
+  #   to:
+  #     table: artists
+  #     column: artistId
+  #   level: fail
+
+  # # SEMANTIC
+  # - id: acquisition-year-range
+  #   type: column.numeric_range   # TODO: use the appropriate range rule
+  #   table: artworks
+  #   column: acquisitionYear
+  #   min: ${min_year}
+  #   max: ${max_year}
+  #   level: fail
+
+  # - id: url-format
+  #   type: column.url             # TODO: pick rule; allow http/https
+  #   table: artworks
+  #   column: url
+  #   allow_schemes: [http, https]
+  #   level: fail
+
+  # - id: title-trimmed
+  #   type: column.non_empty_trimmed  # TODO: or equivalent
+  #   table: artworks
+  #   column: title
+  #   level: warn
+
+  # # POLICY (optional)
+  # - id: medium-policy
+  #   type: column.contains_any      # TODO: or in_set/regex-any—your choice
+  #   table: artworks
+  #   column: medium
+  #   values: ${medium_policy}
+  #   level: warn

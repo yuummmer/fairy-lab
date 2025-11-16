@@ -52,3 +52,13 @@ project_dir/
 
 # legacy stash
 _legacy/
+
+# katas runtime
+katas/**/out.json
+katas/**/.cache/
+# never commit client data
+data/**        # real client data goes here (local only)
+*.Rhistory
+.Rproj.user/
+.Rhistory
+.DS_Store
