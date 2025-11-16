@@ -1,29 +1,66 @@
 # ✨ FAIRy Skeleton (demo runner)✨
-FAIRy-Skeleton is the demo/launcher for FAIRy-core
- — a local-first validator and packager for FAIR-compliant data submissions.
-This repo contains demo configs and a tiny CLI (fairy-skel) that call the real engine in FAIRy-core.
+# FAIRy Lab
 
-What this is: runnable demos (PASS/WARN/FAIL), sample inputs, and a simple UX to showcase workflows.
-What this isn’t: the validator engine. All validation logic lives in FAIRy-core.
+> Repo name: `fairy-skeleton` • Web + CLI demo runner for [FAIRy Core](https://github.com/yuummmer/fairy-core)
+
+FAIRy Lab is the self-hosted demo environment for **FAIRy** — a local-first validator and packager for FAIR-friendly, repository-ready datasets.
+
+This repo gives you:
+
+- A small CLI demo runner (`fairy-skel`) that calls the real engine in **FAIRy Core**
+- Toy datasets and configs that show PASS / WARN / FAIL workflows
+- Example outputs you can use in demos, talks, and screenshots
+- (Experimental) a Streamlit app entry point (`app.py`) for a lightweight web UI
+
+**FAIRy Lab is about workflows and demos.**  
+**FAIRy Core is where the validator engine and rulepacks live.**
 
 ---
-## TL;DR
+
+## What FAIRy Lab is / isn’t
+
+**FAIRy Lab _is_:**
+
+- A reference, self-hosted “lab” for exploring FAIRy:
+  - Upload / point at sample TSVs
+  - Run rulepacks via `fairy-skel`
+  - Inspect findings, PASS/WARN/FAIL, and reports
+- A place to keep:
+  - Demo configs
+  - Toy datasets
+  - Example outputs (for screenshots, grants, and onboarding)
+
+**FAIRy Lab _is not_:**
+
+- The validator engine (that’s **FAIRy Core**)
+- A multi-tenant hosted service (that would be a future “FAIRy Preflight+ / Teams” product)
+
+All actual validation logic, rulepacks, and the `fairy` CLI live in  
+👉 **[FAIRy Core](https://github.com/yuummmer/fairy-core)**
+
+---
+
+## TL;DR (quick start)
+
+Assuming `fairy-core` and `fairy-skeleton` are siblings:
+
 ```bash
-# 1) Create env
+# 1) Create a virtualenv
 python -m venv .venv
 source .venv/bin/activate
 
-# 2) Install FAIRy-core (engine)
-# (from a sibling checkout)
-pip install -e ../fairy-core
+# 2) Install FAIRy Core (engine)
+cd ../fairy-core
+pip install -e .
 
-# 3) Install skeleton (this repo)
+# 3) Install FAIRy Lab (this repo)
+cd ../fairy-skeleton
 pip install -e .
 
 # 4) List and run demos
 fairy-skel demos
-fairy-skel run bulk_rnaseq_min     # intentionally FAILS
-fairy-skel run bulk_rnaseq_pass    # PASS example
+fairy-skel run bulk_rnaseq_min     # intentionally FAILS (shows findings)
+fairy-skel run bulk_rnaseq_pass    # clean PASS
 
 ```
 Outputs are written to each demo’s out/ path defined in its config.yaml.
@@ -166,10 +203,30 @@ Security reports should target FAIRy-core.
 ---
 ## 📜 License
 
-FAIRy-Skeleton: MIT (this repo)
+This repository (“FAIRy Lab” / FAIRy-skeleton) is licensed under a primarily permissive license:
 
-FAIRy-Core: AGPL-3.0-only (see core repo)
+- **Application / UI code in this repo** (e.g. `src/**`, front-end / API glue):  
+  Licensed under **MIT**. See [`LICENSE`](./LICENSE).
 
+- **Example rulepacks, lab configs, and workflows** (if present, e.g. under `labs/**` or `rulepacks/**`):  
+  Intended to be **maximally reusable**. By default these follow the license
+  of this repo (MIT), but we may mark some directories or files as
+  **CC0-1.0** via a local `LICENSE` file if they’re meant as public-domain
+  building blocks.
+
+- **Example datasets, notebooks, and documentation assets** (e.g. `examples/**`, `data/**`, `notebooks/**`):  
+  Unless otherwise noted, these are provided under **CC BY-4.0** so they can
+  be reused with attribution. If a folder has its own `LICENSE` file, that
+  file takes precedence for that content.
+
+- **Third-party components**:  
+  See [`THIRD_PARTY_LICENSES.md`](./THIRD_PARTY_LICENSES.md) if present.
+
+The underlying engine, **FAIRy-core**, is licensed under **AGPL-3.0-only**  
+(see the core repository for details). If you embed or call FAIRy-core as part
+of a product or service, the AGPL terms for FAIRy-core still apply unless you
+have a separate commercial license for the core. For commercial licensing
+questions around FAIRy-core, contact **hello@datadabra.com**.
 ---
 
 ## 📸 Screenshot
@@ -184,5 +241,4 @@ If you use FAIRy in demos or talks, please cite:
 
 FAIRy (v0.1). Local-first validator for FAIR data.
 FAIRy-core: https://github.com/yuummmer/fairy-core
-
-FAIRy-skeleton: https://github.com/yuummmer/fairy-skeleton
+FAIRy Lab: https://github.com/yuummmer/fairy-skeleton
