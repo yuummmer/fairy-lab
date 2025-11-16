@@ -18,8 +18,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yuummmer/fairy-skeleton"
-Repository = "https://github.com/yuummmer/fairy-skeleton"
+Homepage = "https://github.com/yuummmer/FAIRy-lab"
+Repository = "https://github.com/yuummmer/FAIRy-lab"
 
 [project.optional-dependencies]
 # Install the Streamlit demo UI with:  pip install .[ui]

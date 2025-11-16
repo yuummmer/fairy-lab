@@ -1,7 +1,7 @@
-# ✨ FAIRy Skeleton (demo runner)✨
 # FAIRy Lab
 
-> Repo name: `fairy-skeleton` • Web + CLI demo runner for [FAIRy Core](https://github.com/yuummmer/fairy-core)
+> **External name:** FAIRy Lab (GitHub: `FAIRy-lab`) • **Internal name:** `fairy-skeleton`  
+> Web + CLI demo runner for [FAIRy Core](https://github.com/yuummmer/fairy-core)
 
 FAIRy Lab is the self-hosted demo environment for **FAIRy** — a local-first validator and packager for FAIR-friendly, repository-ready datasets.
 
@@ -68,7 +68,7 @@ Outputs are written to each demo’s out/ path defined in its config.yaml.
 ## Requirements
 - Python 3.10+ (FAIRy-core polyfills datetime.UTC for 3.10)
 - Unix-like shell (Linux/macOS/WSL)
--pip and venv (or conda/mamba equivalent)
+- pip and venv (or conda/mamba equivalent)
 
 ---
 ## Getting Started
@@ -203,7 +203,7 @@ Security reports should target FAIRy-core.
 ---
 ## 📜 License
 
-- **FAIRy Lab / FAIRy-skeleton (this repo)**:  
+- **FAIRy Lab** (this repo, internally `fairy-skeleton`):  
   Application / UI code in this repository is licensed under the **MIT License**.  
   See [`LICENSE`](./LICENSE).
 
@@ -236,7 +236,7 @@ If you use FAIRy in demos, talks, or publications, please cite:
 
 FAIRy (v0.1). Local-first validator for FAIR, AI-ready research data.  
 FAIRy-core (engine): https://github.com/yuummmer/fairy-core  
-FAIRy Lab (UI & labs): https://github.com/yuummmer/fairy-lab
+FAIRy Lab (UI & labs): https://github.com/yuummmer/FAIRy-lab
 
 For more detailed citation metadata (authors, version, DOI if applicable),
 see [`CITATION.cff`](./CITATION.cff).

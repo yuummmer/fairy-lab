@@ -50,8 +50,8 @@ in the issue tracker.
    - Clone your fork locally:
 
      ```bash
-     git clone https://github.com/<your-username>/fairy-lab.git
-     cd fairy-lab
+     git clone https://github.com/<your-username>/FAIRy-lab.git
+     cd FAIRy-lab
      ```
 
 3. **Create a feature branch**
@@ -82,7 +82,7 @@ in the issue tracker.
     ```bash
     git push -u origin feat/short-description
     ```
-   - Open a Pull Request (PR) against the main branch of yuummmer/fairy-lab.
+   - Open a Pull Request (PR) against the main branch of yuummmer/FAIRy-lab.
    - In the PR description, include:
         - a short summary of what you changed and why
         - a reference to the issue number (e.g. Fixes #42)
